@@ -13,15 +13,23 @@
         display: flex;
       }
       .left, .right {
+
+      }
+
+      .left {
+        align-items: center;
+        justify-content: center;
         display: flex;
         flex-grow: 1;
         flex-direction: column;
         overflow: auto;
       }
 
-      .left {
-        align-items: center;
-        justify-content: center;
+      .right {
+        grid-auto-rows: 1fr;
+        display: grid;
+        overflow: auto;
+        flex-grow: 2;
       }
 
       .sample {
