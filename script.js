@@ -70,13 +70,20 @@ Object.entries(COLORS_2020)
 const input = document.querySelector("input");
 document.addEventListener("keyup", () => {
   const colorVal = input.value.replace("#", "").trim();
-  Array.from(document.querySelectorAll(".active")).forEach(elm =>
-    elm.classList.remove("active")
-  );
-  const nearest = nearestColor(colorVal).replace("#", "");
-  document.querySelector(`[data-hex="#${nearest}"]`).classList.add("active");
-  left.style.backgroundColor = `#${colorVal}`;
-  Array.from(document.querySelectorAll(".marker")).forEach(
-    e => (e.style.backgroundColor = `#${colorVal}`)
-  );
+  if(colorVal.length === 3 || colorVal.length === 6) {
+    let nearest;
+    Array.from(document.querySelectorAll(".active")).forEach(elm =>
+      elm.classList.remove("active")
+    );
+    try {
+      nearest = nearestColor(colorVal).replace("#", "");
+      document.querySelector(`[data-hex="#${nearest}"]`).classList.add("active");
+    }
+    catch (e) {
+      // Silence Nearest Color Errors
+      console.log(e);
+    }
+
+    document.body.style.backgroundColor = `#${colorVal}`;
+  }
 });
