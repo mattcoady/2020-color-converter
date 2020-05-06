@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <style>
+      body, html {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+      }
+      .wrapper {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+      }
+      .left, .right, .sample {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+      }
+
+      .left {
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sample {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="left">
+        <input type="text">
+      </div>
+      <div class="right"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
