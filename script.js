@@ -31,31 +31,52 @@ const COLORS_2020 = {
 
 const [left, right] = Array.from(document.querySelectorAll(".col"));
 
-Object.entries(COLORS_2020).map(([name, hex]) => {
-  const elm = document.createElement("div");
-  elm.style.backgroundColor = hex;
-  elm.className = "sample";
+Object.entries(COLORS_2020)
+  .map(([name, hex]) => {
+    const wrapper = document.createElement("div");
+    wrapper.setAttribute("data-hex", hex);
+    wrapper.className = "sample-wrapper";
 
-  const elms = Array.apply(null, Array(4)).map(() =>
-    document.createElement("div")
-  );
+    const marker = document.createElement("div");
+    marker.className = "marker";
 
-  const [nameBlack, nameWhite, nameVarWhite, nameVarBlack] = elms;
+    const elm = document.createElement("div");
+    elm.style.backgroundColor = hex;
+    elm.className = "sample";
 
-  nameVarBlack.innerText = "$" + name;
-  nameVarWhite.innerText = "$" + name;
-  nameBlack.innerText = hex;
-  nameWhite.innerText = hex;
+    const elms = Array.apply(null, Array(4)).map(() =>
+      document.createElement("div")
+    );
 
-  nameWhite.style.color = "white";
-  nameVarWhite.style.color = "white";
+    const [nameBlack, nameWhite, nameVarWhite, nameVarBlack] = elms;
 
-  elms.forEach(e => elm.appendChild(e));
+    nameVarBlack.innerText = "$" + name;
+    nameVarWhite.innerText = "$" + name;
+    nameBlack.innerText = hex;
+    nameWhite.innerText = hex;
 
-  return elm;
-}).forEach(e => right.appendChild(e));
+    nameWhite.style.color = "white";
+    nameVarWhite.style.color = "white";
+
+    elms.forEach(e => elm.appendChild(e));
+
+    wrapper.appendChild(marker);
+    wrapper.appendChild(elm);
+
+    return wrapper;
+  })
+  .forEach(e => right.appendChild(e));
 
 const input = document.querySelector("input");
 document.addEventListener("keyup", () => {
-  left.style.backgroundColor = `#${input.value.replace('#','').trim()}`;
+  const colorVal = input.value.replace("#", "").trim();
+  Array.from(document.querySelectorAll(".active")).forEach(elm =>
+    elm.classList.remove("active")
+  );
+  const nearest = nearestColor(colorVal).replace("#", "");
+  document.querySelector(`[data-hex="#${nearest}"]`).classList.add("active");
+  left.style.backgroundColor = `#${colorVal}`;
+  Array.from(document.querySelectorAll(".marker")).forEach(
+    e => (e.style.backgroundColor = `#${colorVal}`)
+  );
 });
