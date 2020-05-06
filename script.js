@@ -29,34 +29,33 @@ const COLORS_2020 = {
   blazeOrange: "#ff6800"
 };
 
-const right = document.querySelector(".right");
-const left = document.querySelector(".left");
+const [left, right] = Array.from(document.querySelectorAll(".col"));
 
-const items = Object.entries(COLORS_2020).forEach(([name, hex]) => {
+Object.entries(COLORS_2020).map(([name, hex]) => {
   const elm = document.createElement("div");
   elm.style.backgroundColor = hex;
   elm.className = "sample";
 
-  const nameBlack = document.createElement("div");
-  const nameWhite = document.createElement("div");
+  const elms = Array.apply(null, Array(4)).map(() =>
+    document.createElement("div")
+  );
 
-  const nameActual = document.createElement("div");
-  nameActual.innerText = '$'+name;
+  const [nameBlack, nameWhite, nameVarWhite, nameVarBlack] = elms;
 
+  nameVarBlack.innerText = "$" + name;
+  nameVarWhite.innerText = "$" + name;
   nameBlack.innerText = hex;
   nameWhite.innerText = hex;
 
   nameWhite.style.color = "white";
+  nameVarWhite.style.color = "white";
 
-  elm.appendChild(nameBlack);
-  elm.appendChild(nameWhite);
+  elms.forEach(e => elm.appendChild(e));
 
-  elm.appendChild(nameActual);
-
-  right.appendChild(elm);
-});
+  return elm;
+}).forEach(e => right.appendChild(e));
 
 const input = document.querySelector("input");
 document.addEventListener("keyup", () => {
-  left.style.backgroundColor = `#${input.value}`;
+  left.style.backgroundColor = `#${input.value.replace('#','').trim()}`;
 });

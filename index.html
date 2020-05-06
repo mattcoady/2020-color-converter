@@ -24,17 +24,24 @@
 
       .sample {
         flex-direction: row;
-        justify-content: space-around;
         align-items: center;
+        display: grid;
+        grid-auto-flow: column;
+        text-align: center;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+
+      input {
+        font-size: 20px;
       }
     </style>
   </head>
   <body>
     <div class="wrapper">
-      <div class="left">
+      <div class="left col">
         <input type="text">
       </div>
-      <div class="right"></div>
+      <div class="right col"></div>
     </div>
     <script src="script.js"></script>
   </body>
